@@ -1,0 +1,138 @@
+.THIS {
+}
+
+.THIS .Font{
+    font: Impact; 
+    font-size:18px;
+	white-space: pre-wrap;
+}
+
+.THIS .FontFeedFooter{
+    font: Impact; 
+    font-size:18px;
+}
+
+.THIS .FontFeedFooter:hover {
+    text-decoration:underline;
+}
+
+.THIS .FontNotification{
+    font: Arial; 
+    font-size:22px;
+    font-weight: bold;
+}
+
+.THIS .FontS {
+	font: Impact; 
+    font-size:28px;
+    font-weight: bold;
+    font-color: #ff0000;
+}
+
+
+.THIS .uiButton {
+    background:none;
+    background-color: #DEB887; 
+    color: #737373;  
+    border: 2px solid #008CBA;
+    font-weight: bold;
+    font-size:18px;
+    padding: 3px 3px 3px 3px;
+    height: 50px;
+    width: 300px;
+    box-shadow:10px 10px 5px #888888;
+    text-shadow: none;
+    margin-left:10px;
+    cursor: pointer;
+}
+
+.THIS .uiButton:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.THIS .ButtonP {
+	font: Impact; 
+    font-size:18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.THIS .ButtonP:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.THIS .ButtonC {
+	font: Arial; 
+    font-size:14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.THIS .ButtonC:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.THIS .buttonX {
+    background:none;
+    background-color:white;
+    color: blue;
+    font-size:14px;
+    font-weight: bold;
+    padding: 3px 3px 3px 3px;
+    box-shadow:none;
+    text-shadow: none;
+    margin-left:0px;
+    cursor: pointer;
+}
+
+.THIS .buttonX:hover {
+    background-color: #cccccc;
+    color: black;
+    border: 2px solid #737373;
+}
+
+
+/*toggleCss.css*/ 
+.THIS .toggle{
+   display: none;
+ }
+
+ .THIS.slds-transition-hide {
+    transition: opacity 1s;
+}
+
+
+.THIS .motion {
+  background-color: #004A7F;
+  border-radius: 20px;
+  border: outset;
+  color: #FFFFFF;
+}
+
+
+@-webkit-keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
+.THIS .motion {
+
+  -webkit-animation: mover 1.5s infinite  alternate;
+    animation: mover 1.5s infinite  alternate;
+
+}
+
+.THIS .motion:hover {
+
+  -webkit-animation-play-state: paused;
+   animation-play-state: paused;
+
+}

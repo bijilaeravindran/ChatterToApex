@@ -1,0 +1,333 @@
+<aura:component access="global" controller="ChatterFeedController">
+<!--Attribute-->
+<aura:attribute name="groupattid" type="String" /> 
+<aura:attribute name="userMode" type="String" /> 
+<aura:attribute name="groupatt" type="Object[]" />
+<aura:attribute name="feedItemIdtest" type="String" />
+<aura:attribute name="like2" type="String" />
+<aura:attribute access="private" name="comment" type="String" />
+<aura:attribute access="private" name="queryString" type="String" />
+<aura:attribute access="private" name="results" type="Object" />
+<aura:handler name="change" value="{!v.queryString}" action="{!c.getuserhandles}"/>
+<aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+<aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+<aura:handler name="init" action="{!c.userFeedItem}" value="{!this}"/>
+<aura:registerEvent name="selectShareFeed" type="c:selectShareFeed"/>
+<aura:handler name="selectShareFeed" event="c:selectShareFeed" action="{!c.setFeed}"/>
+
+
+
+   <!-- Notification -->
+
+<div class="slds-notify_container">
+  <div class="slds-notify slds-notify--alert slds-theme--success slds-theme--alert-texture" role="alert">
+    <p class="FontNotification"> 
+      For more Information, click on the Link  <a href="javascript:void(0);"> More Info </a>
+    </p>
+  </div>
+</div>
+<br/>
+<br/>
+
+
+  <!--Page Header-->
+  <div class="slds-m-vertical--medium">
+    <div class="slds-grid slds-wrap slds-grid--pull-padded">
+     <aura:if isTrue="{!v.userMode != 'Theme4t'}">  
+          <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--5-of-12">
+            <div class="slds-grid slds-grid--vertical-stretch">
+               <ui:button label="Click here to access THOR"  aura:id="button" press="{!c.gotothor}"/>
+               <ui:button label="Click here to access THOR Portal"  aura:id="button" press="{!c.gotothorportal}"/>         
+            </div> 
+          </div>
+     </aura:if>
+      <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--7-of-12">
+         <div class="slds-grid slds-grid--vertical-stretch">
+               <div class="slds-p-vertical--x-small slds-p-horizontal--medium">
+                 <img src="{!$Resource.CapgeminiTHORLogo}" style="height: 80px; width: 385px"></img>
+               </div>
+
+         </div> 
+     </div>
+    </div> 
+  </div> 
+
+
+<!--Page Body-->
+
+   <!-- Tree structured links for download (no logic implemented yet)-->
+
+    <div class="slds-grid slds-scrollable slds-grid--pull-padded ">
+      <aura:if isTrue="{!v.userMode != 'Theme4t'}"> 
+         <div class="slds-p-horizontal--small slds-size--0-of-2 slds-medium-size--1-of-6 slds-large-size--3-of-12">
+           <article class="slds-card slds-card--narrow">
+              <div class="slds-card__header slds-grid">
+                 <div class="slds-media__figure">
+                      <lightning:icon iconName="standard:folder" size="medium" alternativeText="Indicates approval"/>
+                    </div>
+                 <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                   
+                    <div class="slds-media__body slds-truncate">
+
+                       <div class="slds-tree_container" role="application">
+                        <h1 class="FontS slds-text-title--caps" id="treeheading"> Files</h1>
+                        <ul class="slds-tree" role="tree" aria-labelledby="treeheading">
+
+                            <li id="tree0-node0" role="treeitem" aria-level="1">
+                               <div class="slds-tree__item">
+                                 <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                  <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                   <span class="slds-assistive-text">Toggle</span>
+                                 </button><a href="https://capgemini--DEVMASTER--c.cs87.content.force.com/sfc/servlet.shepherd/version/download/0688E000000JNRP?asPdf=false&amp;operationContext=CHATTER" tabindex="-1" role="presentation" class="ButtonP slds-truncate" title="THOR Taxonomy">THOR Taxonomy</a>
+                               </div>
+                            </li>
+                             
+                            <li id="tree0-node1" role="treeitem" aria-level="1" aria-expanded="true">
+                               <div class="slds-tree__item">
+                                <button class="slds-button slds-button--icon slds-m-right--x-small" aria-controls="tree0-node1" title="Toggle">
+                                    <lightning:icon iconName="utility:chevrondown" size="xx-small" alternativeText="Indicates Download"/>
+                                    <span class="slds-assistive-text">Toggle</span>
+                                 </button><a id="tree0-node1__label" href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonP slds-truncate" title="Release Notes">Release Notes</a>
+                              </div>
+
+                                   <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node1__label">
+                                      <li id="tree0-node1-0" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="January">January</a></div>
+                                      </li>
+                                      </ul>
+
+                                      <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node1__label">
+                                      <li id="tree0-node1-1" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="February">February</a></div>
+                                      </li>
+                                      </ul>
+
+                                      <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node1__label">
+                                      <li id="tree0-node1-2" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="March">March</a></div>
+                                      </li>
+                                      </ul>
+
+                                      <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node1__label">
+                                      <li id="tree0-node1-3" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="April">April</a></div>
+                                      </li>
+                                      </ul>
+                                </li>
+                            <li id="tree0-node2" role="treeitem" aria-level="1" aria-expanded="true">
+                               <div class="slds-tree__item">
+                                <button class="slds-button slds-button--icon slds-m-right--x-small" aria-controls="tree0-node1" title="Toggle">
+                                    <lightning:icon iconName="utility:chevrondown" size="xx-small" alternativeText="Indicates Download"/>
+                                    <span class="slds-assistive-text">Toggle</span>
+                                 </button><a id="tree0-node1__label" href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonP slds-truncate" title="Webinars">Webinars</a>
+                              </div>
+                            
+                                    <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node2__label">
+                                      <li id="tree0-node2-0" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="Bid Type">Bid Type</a></div>
+                                      </li>
+                                    </ul>
+                                    <ul class="slds-is-expanded" role="group" aria-labelledby="tree0-node2__label">
+                                      <li id="tree0-node2-1" role="treeitem" aria-level="2">
+                                        <div class="slds-tree__item">
+                                         <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
+                                           <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
+                                           <span class="slds-assistive-text">Toggle</span>
+                                         </button><a href="javascript:void(0);" tabindex="-1" role="presentation" class="ButtonC slds-truncate" title="Delivery Licenses">Delivery Licenses </a></div>
+                                      </li>  
+                                    </ul>
+                            </li>        
+                        </ul>
+                       </div>
+                    </div>
+                 </header>
+              </div>
+            
+           </article>
+
+         </div>   
+       </aura:if>
+             
+ 
+
+   <!--Feed Details-->
+   
+   <div class="slds-p-horizontal--small slds-size--2-of-2 slds-medium-size--1-of-6 slds-large-size--9-of-12">
+      
+              <aura:iteration items="{!v.groupatt}" var="feed" indexVar="key"> 
+                <article class="slds-post"> 
+                    <header class="slds-post__header slds-media">
+                        <div class="slds-media__figure">
+                          <span class="slds-avatar slds-avatar--circle slds-avatar--large">
+                            <img src= "{!feed.actor.photo.smallPhotoUrl}" alt="Actor name"/>                        
+                          </span>
+                        </div>
+                        <div class="slds-media__body">
+                          <div class="slds-text-heading--medium">
+                             <b><a href="" title="">{!feed.actor.name}</a></b>
+
+                          </div>
+                          <p class="slds-text-body--small"><a href="" title="" class="slds-text-link--reset">{!feed.createdDate}</a></p>    
+                        </div>
+                    </header>  
+                        <div class="slds-post__content">             
+                          <ui:outputRichText class="Font" aura:id="outputRT" value="{!feed.body.text}"/> 
+                       </div>
+              
+             
+                  <div class="slds-post__payload">
+                    <aura:if isTrue="{!feed.capabilities.files.items[0].versionId != null}">
+                      <div class="slds-media slds-box slds-theme--shade slds-theme--alert-texture slds-grow slds-text-link--reset">  
+                        <div class="slds-media__figure slds-medium-show">
+                          <div class="slds-image slds-size--medium">
+                            <div class="slds-image__crop slds-image__crop--16-by-9">
+                               <aura:if isTrue="{!feed.capabilities.files.items != null}">
+                                <img src="{!feed.capabilities.files.items[0].renditionUrl240By180}" class="slds-media slds-grow slds-text-link--reset" title="Click to view" data-id="{!feed.capabilities.files.items[0].versionId}" onclick="{!c.popupImage}" />
+                               </aura:if>
+                               <aura:if isTrue="{!feed.capabilities.files.items[0].fileType == 'CSV' || !feed.capabilities.files.items[0].fileType == 'EXCEL'}">
+                                <img src="{!$Resource.EXCEL}" title="Click to view" />
+                               </aura:if>  
+                               <aura:if isTrue="{!feed.capabilities.files.items[0].fileExtension == 'wmv'}">
+                                <img src="{!$Resource.Video}" title="Click to view"/>
+                               </aura:if> 
+                               
+                                <aura:if isTrue="{!and(feed.capabilities.files.items[0].renditionUrl240By180 == null,feed.capabilities.files.items[0].fileType !='CSV',feed.capabilities.files.items[0].fileType !='EXCEL',feed.capabilities.files.items[0].fileExtension != 'wmv')}">
+                                <img src="{!$Resource.UnknownAttach}" title="Click to view" />
+                               </aura:if>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="slds-media__body">
+                          <h1 class="slds-text-heading--small" title="Title">
+                           <b><ui:outputRichText value="{!feed.capabilities.files.items[0].title}"/> </b>
+                          </h1>
+                          <br/>
+                           <p> <lightning:icon iconName="utility:download" size="xx-small" alternativeText="Indicates Download"/>
+                            <a href="{!feed.capabilities.files.items[0].downloadUrl}"> Download</a>
+                            <div class="slds-text-color--weak"> ({!feed.capabilities.files.items[0].fileSize})</div>
+                           </p>           
+                        </div>
+                      </div> 
+                    </aura:if>   
+                  </div> 
+   
+    
+
+                    <!--Feed Like/Unlike -->
+                   <footer class="slds-post__footer">
+                     <ul class="slds-post__footer-actions-list slds-list--horizontal">
+
+                       <li class="slds-col slds-item slds-m-right--medium" id="{!feed.id}">
+                            <a id="{!'like-'+feed.id}" data-id="{!feed.id}" data-likeid="{!feed.capabilities.chatterLikes.myLike.id}" href="javascript:void(0);"
+                               title="Like this item" class="{!feed.capabilities.chatterLikes.isLikedByCurrentUser == false ? 'FontFeedFooter slds-post__footer-action' : 'FontFeedFooter slds-post__footer-action slds-hide'}"
+                               onclick="{!c.liketoggle}">
+                               <div id="{!'spinner-'+feed.id}" class="slds-hide">   
+                               <ui:spinner aura:id="myLikespinner" class="slds-spinner--small"/>
+                               </div>               
+                                Like    
+                            </a>
+                            <a id="{!'unlike-'+feed.id}" data-id="{!feed.id}" data-likeid="{!feed.capabilities.chatterLikes.myLike.id}" href="javascript:void(0);"
+                               title="UnLike this item" class="{!feed.capabilities.chatterLikes.isLikedByCurrentUser == true ? 'FontFeedFooter slds-post__footer-action' : 'FontFeedFooter slds-post__footer-action slds-hide'}"
+                               onclick="{!c.unliketoggle}">
+                               <div id="{!'spinner'+feed.id}" class="slds-hide">  
+                               <ui:spinner aura:id="myUnlikespinner" class="slds-spinner--small"/>
+                               </div>
+                               <lightning:icon iconName="utility:like" size="small" alternativeText="Like"/>
+                               Unlike  <b>
+                                       </b> 
+                            </a>       
+                      </li>   
+
+                    <!-- Feed Share-->
+                      <li class="slds-col slds-item slds-m-right--medium">
+                          <a href="" onclick="{!c.sharetoggle}" type="button" data-feedid="{!feed.id}" title="Share this item" class="FontFeedFooter slds-post__footer-action">
+                             <lightning:icon iconName="utility:share"  size="small"  alternativeText="Share this item"/>Share
+                          </a> 
+                      </li> 
+                        
+                 </ul>
+                </footer>
+
+                <br />
+
+                  <div id="{!'show-'+feed.id}" div-id="{!feed.id}" class="slds-hide">
+                          <div class="slds-col slds-item slds-m-right--medium">        
+                               <div class="slds-form-element">
+                                  <div class="slds-form-element__control">
+                                      <textarea id="{!feed.id + '-text'}" onkeyup="{!c.listenforMentions}" class="Font slds-textarea" placeholder="Share this item with, @.." maxlength="400">
+                                      {!v.comment}
+                                      </textarea>
+                                  </div>
+                               </div>
+
+                                   <div id="{!'menu'+feed.id}" name="predictions" class="slds-dropdown slds-nubbin--top-left slds-hide">
+                                        <ul class="slds-dropdown__list" role="menu">
+                                            <aura:iteration items="{!v.results.haystack}" var="item">
+                                                <li class="slds-dropdown__item" role="presentation">
+                                                    <a href="javascript:void(0);" data-key="{!v.results.needle}" data-value="{!item}" role="menuitem" tabindex="0"
+                                                     onclick="{!c.search_replace}">
+                                                        <span data-key="{!v.results.needle}" data-value="{!item}" class="FontNotification slds-truncate">{!item}</span>
+                                                    </a>
+                                                </li>
+                                            </aura:iteration>
+                                        </ul>
+                                   </div>
+                                    <br />
+                                   <div class="slds-col slds-item slds-m-right--medium">
+                                      <button class="ButtonP slds-button slds-button--brand" onclick="{!c.shareItem}" ><b>Share</b></button>
+                                   </div>
+                          </div> 
+
+                   </div> 
+
+             
+  
+                  <!--Feed share toast message-->
+                   <div id="{!'toast'+feed.id}" class="slds-hide">
+                     <ui:message title=" This feed has been shared succesfully." severity="confirm" closable="true" /> 
+                   </div>
+ 
+
+                    <br/><br/><br/>
+                   </article> 
+                  </aura:iteration>            
+      
+      </div> 
+
+      
+
+  </div> 
+
+<aura:if isTrue="{!v.userMode != 'Theme4t'}">
+    <button class="slds-button slds-button__icon slds-button__icon_left slds-button__icon_large">
+       <lightning:buttonIcon iconName="utility:capslock" variant="brand" size="large" class="motion" onclick="{!c.scrolltop}" />
+    </button>
+</aura:if>
+       <!-- Spinner Animation -->  
+         <center>
+        <div class="slds-spinner--large" aura:id="spinner">
+       <img src="/resource/SLDS0121/assets/images/spinners/slds_spinner_brand.gif" alt="Loading..." />    
+        </div>
+        </center>     
+  
+</aura:component>
