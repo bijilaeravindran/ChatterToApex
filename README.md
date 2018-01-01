@@ -1,6 +1,6 @@
 #Chatter Announcement page
 
-A chatter page in Lightning that shows the first 20 to 30 posts shared in a group in the Salesforce org. 
+A chatter page in Lightning that shows the last 20 to 30 posts made in a group in the Salesforce org. 
 
 Features include Like/Unlike, Share post with a group or person.
 
