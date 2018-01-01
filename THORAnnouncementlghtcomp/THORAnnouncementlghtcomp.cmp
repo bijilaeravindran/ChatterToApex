@@ -36,15 +36,15 @@
      <aura:if isTrue="{!v.userMode != 'Theme4t'}">  
           <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--5-of-12">
             <div class="slds-grid slds-grid--vertical-stretch">
-               <ui:button label="Click here to access THOR"  aura:id="button" press="{!c.gotothor}"/>
-               <ui:button label="Click here to access THOR Portal"  aura:id="button" press="{!c.gotothorportal}"/>         
+               <ui:button label="Click here to access myproject"  aura:id="button" press="{!c.gotothor}"/>
+               <ui:button label="Click here to access myproject Portal"  aura:id="button" press="{!c.gotothorportal}"/>         
             </div> 
           </div>
      </aura:if>
       <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--7-of-12">
          <div class="slds-grid slds-grid--vertical-stretch">
                <div class="slds-p-vertical--x-small slds-p-horizontal--medium">
-                 <img src="{!$Resource.CapgeminiTHORLogo}" style="height: 80px; width: 385px"></img>
+                 <img src="{!$Resource.Logo}" style="height: 80px; width: 385px"></img>
                </div>
 
          </div> 
@@ -78,7 +78,7 @@
                                  <button class="slds-button slds-button--icon slds-m-right--x-small slds-is-disabled" disabled="" title="Toggle">
                                   <lightning:icon iconName="utility:chevronright" size="xx-small" alternativeText="Indicates Download"/>
                                    <span class="slds-assistive-text">Toggle</span>
-                                 </button><a href="https://capgemini--DEVMASTER--c.cs87.content.force.com/sfc/servlet.shepherd/version/download/0688E000000JNRP?asPdf=false&amp;operationContext=CHATTER" tabindex="-1" role="presentation" class="ButtonP slds-truncate" title="THOR Taxonomy">THOR Taxonomy</a>
+                                 </button>
                                </div>
                             </li>
                              
